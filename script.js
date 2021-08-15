@@ -154,20 +154,23 @@ for (i = 0; i < 100; i++) {
   gameTiles[i].addEventListener("click", (e) => {
     let idx = e.target.classList[1];
     idx--;
+    flag = false;
     console.log(idx);
     if (arr[idx] == 1) {
       var bombs = document.querySelectorAll("tile-text");
       for (j = 0; j < 100; j++) {
         gameTiles[j].children[0].style.visibility = "visible";
       }
-
-      setTimeout(alert("Found A mine ! Game over"), 2000);
-      location.reload();
+      flag = true;
     } else {
       if (!isclicked[idx]) currentscore++, (isclicked[idx] = 1);
       gameTiles[idx].children[0].style.visibility = "visible";
       document.querySelector(".score").innerHTML = currentscore;
       gameTiles[idx].style.color = "black";
+    }
+    if (flag) {
+      alert("Found A mine ! Game over");
+      location.reload();
     }
   });
 }
