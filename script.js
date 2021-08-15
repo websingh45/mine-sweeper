@@ -160,7 +160,8 @@ for (i = 0; i < 100; i++) {
       for (j = 0; j < 100; j++) {
         gameTiles[j].children[0].style.visibility = "visible";
       }
-      alert("Found A mine ! Game over");
+
+      setTimeout(alert("Found A mine ! Game over"), 2000);
       location.reload();
     } else {
       if (!isclicked[idx]) currentscore++, (isclicked[idx] = 1);
