@@ -82,10 +82,6 @@ for (i = 0; i < 100; i++) {
     idx--;
     flag = false;
     // console.log(idx);
-    if (tileClicked == 90) {
-      alert("You Won the Game!");
-      location.reload();
-    }
     if (arr[idx] == 1) {
       mineFound();
       flag = true;
@@ -98,6 +94,10 @@ for (i = 0; i < 100; i++) {
     }
     if (flag) {
       alert("Found A mine ! Game over");
+      location.reload();
+    }
+    if (tileClicked == 90) {
+      alert("You Won the Game!");
       location.reload();
     }
   });
