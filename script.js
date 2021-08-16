@@ -82,10 +82,7 @@ for (i = 0; i < 100; i++) {
     flag = false;
     // console.log(idx);
     if (arr[idx] == 1) {
-      var bombs = document.querySelectorAll("tile-text");
-      for (j = 0; j < 100; j++) {
-        gameTiles[j].children[0].style.visibility = "visible";
-      }
+      mineFound();
       flag = true;
     } else {
       if (!isclicked[idx]) currentscore++, (isclicked[idx] = 1);
@@ -99,8 +96,10 @@ for (i = 0; i < 100; i++) {
     }
   });
 }
-function displayAllMines() {
-  document.querySelectorAll(".tile").style.color = "black";
+function mineFound() {
+  for (j = 0; j < 100; j++) {
+    gameTiles[j].children[0].style.visibility = "visible";
+  }
   return;
 }
 
