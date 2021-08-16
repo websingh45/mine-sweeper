@@ -16,6 +16,7 @@ var isclicked = new Array(100);
 for (i = 0; i < 100; i++) (arr[i] = -1), (isclicked[i] = 0);
 const numTiles = 100;
 const numMines = 10;
+var tileClicked = 0;
 gameTiles = document.querySelectorAll(".tile");
 // we'll get an array of all elements of the tiles
 for (i = 1; i <= 100; i++) {
@@ -81,10 +82,15 @@ for (i = 0; i < 100; i++) {
     idx--;
     flag = false;
     // console.log(idx);
+    if (tileClicked == 90) {
+      alert("You Won the Game!");
+      location.reload();
+    }
     if (arr[idx] == 1) {
       mineFound();
       flag = true;
     } else {
+      tileClicked++;
       if (!isclicked[idx]) currentscore++, (isclicked[idx] = 1);
       gameTiles[idx].children[0].style.visibility = "visible";
       document.querySelector(".score").innerHTML = currentscore;
