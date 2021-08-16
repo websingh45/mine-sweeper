@@ -9,6 +9,7 @@ toggleElement.addEventListener("click", (e) => {
     e.target.innerHTML = "Light Mode";
   }
 });
+var idxMines = new Set();
 var arr = new Array(100);
 var currentscore = 0;
 var isclicked = new Array(100);
@@ -19,6 +20,7 @@ gameTiles = document.querySelectorAll(".tile");
 // we'll get an array of all elements of the tiles
 for (i = 1; i <= 100; i++) {
   gameTiles[i - 1].classList.add(i);
+  console.log(gameTiles[i - 1].classList);
 }
 function layMines() {
   for (i = 0; i < numMines; i++) {
@@ -29,125 +31,48 @@ function layMines() {
         flag = true;
         arr[idx] = 1;
         //console.log(idx);
-        //  console.log(gameTiles[idx].classList);
+        //console.log(gameTiles[idx].classList);
+        idxMines.add(idx);
         gameTiles[idx].innerHTML = '<i class="tile-text fa fa-bomb"></i>';
       }
     }
   }
 }
+layMines();
+
 function initGame() {
   for (i = 0; i < 100; i++) {
-    let cnt = 0;
     if (arr[i] == 1) continue;
-    if (i == 0) {
-      if (arr[1] == 1) cnt++;
-      if (arr[10] == 1) cnt++;
-      if (arr[11] == 1) cnt++;
-    } else if (i == 9) {
-      if (arr[8] == 1) cnt++;
-      if (arr[19] == 1) cnt++;
-      if (arr[18] == 1) cnt++;
-    } else if (i == 90) {
-      if (arr[80] == 1) cnt++;
-      if (arr[81] == 1) cnt++;
-      if (arr[91] == 1) cnt++;
-    } else if (i == 99) {
-      if (arr[89] == 1) cnt++;
-      if (arr[88] == 1) cnt++;
-      if (arr[98] == 1) cnt++;
-    } else if (i < 10) {
-      if (arr[i - 1] == 1) {
+    else {
+      let cnt = 0;
+      if (idxMines.has(i + 1)) {
         cnt++;
       }
-      if (arr[i + 1] == 1) {
+      if (idxMines.has(i - 1)) {
         cnt++;
       }
-      if (arr[i + 9] == 1) {
+      if (idxMines.has(i + 10)) {
         cnt++;
       }
-      if (arr[i + 10] == 1) {
+      if (idxMines.has(i - 10)) {
         cnt++;
       }
-      if (arr[i + 11] == 1) {
+      if (idxMines.has(i + 11)) {
         cnt++;
       }
-    } else if (90 < i < 100) {
-      if (arr[i - 1] == 1) {
+      if (idxMines.has(i + 9)) {
         cnt++;
       }
-      if (arr[i + 1] == 1) {
+      if (idxMines.has(i - 11)) {
         cnt++;
       }
-      if (arr[i - 10] == 1) {
+      if (idxMines.has(i - 9)) {
         cnt++;
       }
-      if (arr[i - 9] == 1) {
-        cnt++;
-      }
-      if (arr[i - 11] == 1) {
-        cnt++;
-      }
-    } else if (i % 10 == 0) {
-      if (arr[i + 1] == 1) {
-        cnt++;
-      }
-      if (arr[i + 10] == 1) {
-        cnt++;
-      }
-      if (arr[i - 10] == 1) {
-        cnt++;
-      }
-      if (arr[i + 11] == 1) {
-        cnt++;
-      }
-      if (arr[i - 9] == 1) {
-        cnt++;
-      }
-    } else if (i % 10 == 9) {
-      if (arr[i - 1] == 1) {
-        cnt++;
-      }
-      if (arr[i + 10] == 1) {
-        cnt++;
-      }
-      if (arr[i - 10] == 1) {
-        cnt++;
-      }
-      if (arr[i - 11] == 1) {
-        cnt++;
-      }
-      if (arr[i + 9] == 1) {
-        cnt++;
-      }
-    } else {
-      if (arr[i - 1] == 1) {
-        cnt++;
-      }
-      if (arr[i + 1] == 1) {
-        cnt++;
-      }
-      if (arr[i - 10] == 1) {
-        cnt++;
-      }
-      if (arr[i - 9] == 1) {
-        cnt++;
-      }
-      if (arr[i - 11] == 1) {
-        cnt++;
-      }
-      if (arr[i + 9] == 1) {
-        cnt++;
-      }
-      if (arr[i + 10] == 1) {
-        cnt++;
-      }
-      if (arr[i + 11] == 1) {
-        cnt++;
-      }
+      gameTiles[i].innerHTML = `<p class="tile-text">${cnt}</p>`;
     }
-    gameTiles[i].innerHTML = `<p class="tile-text">${cnt}</p>`;
-    console.log(i, cnt);
   }
+  // console.log(i, cnt);
 }
 
 for (i = 0; i < 100; i++) {
@@ -155,7 +80,7 @@ for (i = 0; i < 100; i++) {
     let idx = e.target.classList[1];
     idx--;
     flag = false;
-    console.log(idx);
+    // console.log(idx);
     if (arr[idx] == 1) {
       var bombs = document.querySelectorAll("tile-text");
       for (j = 0; j < 100; j++) {
@@ -178,5 +103,5 @@ function displayAllMines() {
   document.querySelectorAll(".tile").style.color = "black";
   return;
 }
-layMines();
+
 initGame();
