@@ -45,28 +45,28 @@ function initGame() {
     if (arr[i] == 1) continue;
     else {
       let cnt = 0;
-      if (idxMines.has(i + 1)) {
+      if (i % 10 != 9 && idxMines.has(i + 1)) {
         cnt++;
       }
-      if (idxMines.has(i - 1)) {
+      if (i % 10 != 0 && idxMines.has(i - 1)) {
         cnt++;
       }
-      if (idxMines.has(i + 10)) {
+      if (i < 90 && idxMines.has(i + 10)) {
         cnt++;
       }
-      if (idxMines.has(i - 10)) {
+      if (i >= 10 && idxMines.has(i - 10)) {
         cnt++;
       }
-      if (idxMines.has(i + 11)) {
+      if (i % 10 != 9 && i < 90 && idxMines.has(i + 11)) {
         cnt++;
       }
-      if (idxMines.has(i + 9)) {
+      if (i % 10 != 0 && i < 90 && idxMines.has(i + 9)) {
         cnt++;
       }
-      if (idxMines.has(i - 11)) {
+      if (i % 10 != 0 && i > 10 && idxMines.has(i - 11)) {
         cnt++;
       }
-      if (idxMines.has(i - 9)) {
+      if (i % 10 != 9 && i >= 10 && idxMines.has(i - 9)) {
         cnt++;
       }
       gameTiles[i].innerHTML = `<p class="tile-text">${cnt}</p>`;
